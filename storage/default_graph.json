@@ -1,0 +1,2383 @@
+{
+  "project_name": "default",
+  "created_at": "2025-04-10T13:12:05.765244",
+  "nodes": [
+    {
+      "id": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "name": "models.py",
+      "type": "file",
+      "status": "implemented",
+      "description": "Python file: models.py",
+      "code_text": "\"\"\"\nData models for the Task Scheduler API.\n\"\"\"\n\nfrom datetime import datetime\nfrom enum import Enum\nfrom typing import Optional, List\nfrom pydantic import BaseModel, Field\n\n\nclass PriorityEnum(str, Enum):\n    \"\"\"Priority levels for tasks.\"\"\"\n    LOW = \"low\"\n    MEDIUM = \"medium\"\n    HIGH = \"high\"\n    URGENT = \"urgent\"\n\n\nclass CategoryBase(BaseModel):\n    \"\"\"Base model for Category data.\"\"\"\n    name: str\n    description: Optional[str] = None\n\n\nclass CategoryCreate(CategoryBase):\n    \"\"\"Model for creating a new Category.\"\"\"\n    pass\n\n\nclass Category(CategoryBase):\n    \"\"\"Model for a Category with ID.\"\"\"\n    id: int\n\n    class Config:\n        \"\"\"Pydantic configuration.\"\"\"\n        from_attributes = True\n\n\nclass TaskBase(BaseModel):\n    \"\"\"Base model for Task data.\"\"\"\n    title: str\n    description: Optional[str] = None\n    due_date: Optional[datetime] = None\n    priority: PriorityEnum = PriorityEnum.MEDIUM\n    completed: bool = False\n    category_id: Optional[int] = None\n\n\nclass TaskCreate(TaskBase):\n    \"\"\"Model for creating a new Task.\"\"\"\n    pass\n\n\nclass Task(TaskBase):\n    \"\"\"Model for a Task with ID.\"\"\"\n    id: int\n    created_at: datetime = Field(default_factory=datetime.now)\n    updated_at: Optional[datetime] = None\n    category: Optional[Category] = None\n\n    class Config:\n        \"\"\"Pydantic configuration.\"\"\"\n        from_attributes = True\n\n\nclass TaskUpdate(BaseModel):\n    \"\"\"Model for updating a Task.\"\"\"\n    title: Optional[str] = None\n    description: Optional[str] = None\n    due_date: Optional[datetime] = None\n    priority: Optional[PriorityEnum] = None\n    completed: Optional[bool] = None\n    category_id: Optional[int] = None",
+      "created_at": "2025-04-10T13:10:37.586545",
+      "last_modified": "2025-04-10T13:10:37.586556",
+      "version": 1,
+      "metadata": {
+        "path": "/Users/sparshdrolia/Sparsh personal/task-scheduler-api/app/models.py"
+      }
+    },
+    {
+      "id": "c8159787-954c-4667-8cdc-717417590eec",
+      "name": "datetime",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: datetime",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.587180",
+      "last_modified": "2025-04-10T13:10:37.587182",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "9119a663-a563-4fae-af4a-9f677cb6fd10",
+      "name": "datetime.datetime",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from datetime: datetime",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.587391",
+      "last_modified": "2025-04-10T13:10:37.587392",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "datetime"
+      }
+    },
+    {
+      "id": "d3e9efac-1568-4adb-835d-2542bd3af887",
+      "name": "enum",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: enum",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.588001",
+      "last_modified": "2025-04-10T13:10:37.588003",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "dfcba3e3-147b-4183-9f1f-f83f4ca8e938",
+      "name": "enum.Enum",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from enum: Enum",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.588220",
+      "last_modified": "2025-04-10T13:10:37.588222",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "enum"
+      }
+    },
+    {
+      "id": "b26f89dc-28a9-4338-8571-2e9541393a87",
+      "name": "typing",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: typing",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.588920",
+      "last_modified": "2025-04-10T13:10:37.588921",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "bd29a36e-e771-41cb-8b47-405ecc458000",
+      "name": "typing.Optional",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from typing: Optional",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.589190",
+      "last_modified": "2025-04-10T13:10:37.589192",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "typing"
+      }
+    },
+    {
+      "id": "4049c300-0ff0-4753-9ec0-a97ebbdd03b5",
+      "name": "typing.List",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from typing: List",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.590051",
+      "last_modified": "2025-04-10T13:10:37.590053",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "typing"
+      }
+    },
+    {
+      "id": "955d431a-b9d6-40a2-8e61-7ff8de6dd24b",
+      "name": "pydantic",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: pydantic",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.591077",
+      "last_modified": "2025-04-10T13:10:37.591079",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "e660d70e-3037-41f9-9b6f-fab70fa66069",
+      "name": "pydantic.BaseModel",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from pydantic: BaseModel",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.591527",
+      "last_modified": "2025-04-10T13:10:37.591529",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "pydantic"
+      }
+    },
+    {
+      "id": "5b9df197-2eaf-4455-af76-6977062df6dd",
+      "name": "pydantic.Field",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from pydantic: Field",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:37.593379",
+      "last_modified": "2025-04-10T13:10:37.593381",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "pydantic"
+      }
+    },
+    {
+      "id": "65cdba71-82ba-4bef-ba15-9f3b2b04886c",
+      "name": "PriorityEnum",
+      "type": "class",
+      "status": "implemented",
+      "description": "Priority levels for tasks.",
+      "code_text": "class PriorityEnum(str, Enum):\n    \"\"\"Priority levels for tasks.\"\"\"\n    LOW = \"low\"\n    MEDIUM = \"medium\"\n    HIGH = \"high\"\n    URGENT = \"urgent\"",
+      "created_at": "2025-04-10T13:10:37.594769",
+      "last_modified": "2025-04-10T13:10:37.594771",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "str",
+          "Enum"
+        ],
+        "methods": [],
+        "line_range": [
+          11,
+          16
+        ]
+      }
+    },
+    {
+      "id": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "name": "CategoryBase",
+      "type": "class",
+      "status": "implemented",
+      "description": "Base model for Category data.",
+      "code_text": "class CategoryBase(BaseModel):\n    \"\"\"Base model for Category data.\"\"\"\n    name: str\n    description: Optional[str] = None",
+      "created_at": "2025-04-10T13:10:37.596947",
+      "last_modified": "2025-04-10T13:10:37.596948",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "BaseModel"
+        ],
+        "methods": [],
+        "line_range": [
+          19,
+          22
+        ]
+      }
+    },
+    {
+      "id": "788374aa-54a6-48ab-8c11-b8bfd7f60757",
+      "name": "CategoryCreate",
+      "type": "class",
+      "status": "implemented",
+      "description": "Model for creating a new Category.",
+      "code_text": "class CategoryCreate(CategoryBase):\n    \"\"\"Model for creating a new Category.\"\"\"\n    pass",
+      "created_at": "2025-04-10T13:10:37.598790",
+      "last_modified": "2025-04-10T13:10:37.598791",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "CategoryBase"
+        ],
+        "methods": [],
+        "line_range": [
+          25,
+          27
+        ]
+      }
+    },
+    {
+      "id": "51432a4e-6349-42b8-a2f6-d8109dc59710",
+      "name": "Category",
+      "type": "class",
+      "status": "implemented",
+      "description": "Model for a Category with ID.",
+      "code_text": "class Category(CategoryBase):\n    \"\"\"Model for a Category with ID.\"\"\"\n    id: int\n\n    class Config:\n        \"\"\"Pydantic configuration.\"\"\"\n        from_attributes = True",
+      "created_at": "2025-04-10T13:10:37.600549",
+      "last_modified": "2025-04-10T13:10:37.600550",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "CategoryBase"
+        ],
+        "methods": [],
+        "line_range": [
+          30,
+          36
+        ]
+      }
+    },
+    {
+      "id": "95eb211e-6933-41ab-902d-4dddcb189da6",
+      "name": "TaskBase",
+      "type": "class",
+      "status": "implemented",
+      "description": "Base model for Task data.",
+      "code_text": "class TaskBase(BaseModel):\n    \"\"\"Base model for Task data.\"\"\"\n    title: str\n    description: Optional[str] = None\n    due_date: Optional[datetime] = None\n    priority: PriorityEnum = PriorityEnum.MEDIUM\n    completed: bool = False\n    category_id: Optional[int] = None",
+      "created_at": "2025-04-10T13:10:37.602461",
+      "last_modified": "2025-04-10T13:10:37.602462",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "BaseModel"
+        ],
+        "methods": [],
+        "line_range": [
+          39,
+          46
+        ]
+      }
+    },
+    {
+      "id": "72cd35b4-f72b-44b6-b315-f6a8e63e923a",
+      "name": "TaskCreate",
+      "type": "class",
+      "status": "implemented",
+      "description": "Model for creating a new Task.",
+      "code_text": "class TaskCreate(TaskBase):\n    \"\"\"Model for creating a new Task.\"\"\"\n    pass",
+      "created_at": "2025-04-10T13:10:37.604437",
+      "last_modified": "2025-04-10T13:10:37.604442",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "TaskBase"
+        ],
+        "methods": [],
+        "line_range": [
+          49,
+          51
+        ]
+      }
+    },
+    {
+      "id": "f1ddf234-29ed-4477-9ba0-e4cb028a47cf",
+      "name": "Task",
+      "type": "class",
+      "status": "implemented",
+      "description": "Model for a Task with ID.",
+      "code_text": "class Task(TaskBase):\n    \"\"\"Model for a Task with ID.\"\"\"\n    id: int\n    created_at: datetime = Field(default_factory=datetime.now)\n    updated_at: Optional[datetime] = None\n    category: Optional[Category] = None\n\n    class Config:\n        \"\"\"Pydantic configuration.\"\"\"\n        from_attributes = True",
+      "created_at": "2025-04-10T13:10:37.607010",
+      "last_modified": "2025-04-10T13:10:37.607012",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "TaskBase"
+        ],
+        "methods": [],
+        "line_range": [
+          54,
+          63
+        ]
+      }
+    },
+    {
+      "id": "2b7552cd-50f4-4dc1-82f6-5b5d3d1c5683",
+      "name": "TaskUpdate",
+      "type": "class",
+      "status": "implemented",
+      "description": "Model for updating a Task.",
+      "code_text": "class TaskUpdate(BaseModel):\n    \"\"\"Model for updating a Task.\"\"\"\n    title: Optional[str] = None\n    description: Optional[str] = None\n    due_date: Optional[datetime] = None\n    priority: Optional[PriorityEnum] = None\n    completed: Optional[bool] = None\n    category_id: Optional[int] = None",
+      "created_at": "2025-04-10T13:10:37.608896",
+      "last_modified": "2025-04-10T13:10:37.608897",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "BaseModel"
+        ],
+        "methods": [],
+        "line_range": [
+          66,
+          73
+        ]
+      }
+    },
+    {
+      "id": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "name": "database.py",
+      "type": "file",
+      "status": "implemented",
+      "description": "Python file: database.py",
+      "code_text": "\"\"\"\nDatabase configuration for the Task Scheduler API.\n\"\"\"\n\nfrom sqlalchemy import create_engine, Column, Integer, String, Text, Boolean, DateTime, ForeignKey\nfrom sqlalchemy.ext.declarative import declarative_base\nfrom sqlalchemy.orm import sessionmaker, relationship\nfrom sqlalchemy.sql import func\nfrom datetime import datetime\n\n# Create SQLite database engine\nSQLALCHEMY_DATABASE_URL = \"sqlite:///./task_scheduler.db\"\nengine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={\"check_same_thread\": False})\n\n# Create session factory\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n\n# Create base class for models\nBase = declarative_base()\n\n\nclass CategoryModel(Base):\n    \"\"\"SQLAlchemy model for categories.\"\"\"\n    __tablename__ = \"categories\"\n\n    id = Column(Integer, primary_key=True, index=True)\n    name = Column(String, unique=True, index=True)\n    description = Column(Text, nullable=True)\n    \n    # Relationship with tasks\n    tasks = relationship(\"TaskModel\", back_populates=\"category\")\n\n\nclass TaskModel(Base):\n    \"\"\"SQLAlchemy model for tasks.\"\"\"\n    __tablename__ = \"tasks\"\n\n    id = Column(Integer, primary_key=True, index=True)\n    title = Column(String, index=True)\n    description = Column(Text, nullable=True)\n    due_date = Column(DateTime, nullable=True)\n    priority = Column(String, default=\"medium\")\n    completed = Column(Boolean, default=False)\n    created_at = Column(DateTime, default=datetime.now)\n    updated_at = Column(DateTime, nullable=True, onupdate=func.now())\n    \n    # Foreign key relationship with categories\n    category_id = Column(Integer, ForeignKey(\"categories.id\"), nullable=True)\n    category = relationship(\"CategoryModel\", back_populates=\"tasks\")\n\n\ndef get_db():\n    \"\"\"Get database session.\"\"\"\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()\n\n\n# Create tables\ndef create_tables():\n    \"\"\"Create database tables.\"\"\"\n    Base.metadata.create_all(bind=engine)",
+      "created_at": "2025-04-10T13:10:48.369458",
+      "last_modified": "2025-04-10T13:10:48.369463",
+      "version": 1,
+      "metadata": {
+        "path": "/Users/sparshdrolia/Sparsh personal/task-scheduler-api/app/database.py"
+      }
+    },
+    {
+      "id": "4f661664-681b-429e-ae64-0afcdd6ef029",
+      "name": "sqlalchemy",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: sqlalchemy",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.370305",
+      "last_modified": "2025-04-10T13:10:48.370308",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "f3e52e2e-c9f1-4dbc-b14e-98c8097710e1",
+      "name": "sqlalchemy.create_engine",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy: create_engine",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.371066",
+      "last_modified": "2025-04-10T13:10:48.371067",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy"
+      }
+    },
+    {
+      "id": "db71d717-d1f4-4879-8864-5ba6b3ad1f28",
+      "name": "sqlalchemy.Column",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy: Column",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.372624",
+      "last_modified": "2025-04-10T13:10:48.372625",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy"
+      }
+    },
+    {
+      "id": "febb3b16-135f-4f87-b9ab-a6cb008b81d2",
+      "name": "sqlalchemy.Integer",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy: Integer",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.374247",
+      "last_modified": "2025-04-10T13:10:48.374248",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy"
+      }
+    },
+    {
+      "id": "2bf4db63-a55e-49c6-bdea-049109234bcf",
+      "name": "sqlalchemy.String",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy: String",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.376194",
+      "last_modified": "2025-04-10T13:10:48.376196",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy"
+      }
+    },
+    {
+      "id": "294cdae0-a1cd-4511-b3d5-c97c315cfc9d",
+      "name": "sqlalchemy.Text",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy: Text",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.378129",
+      "last_modified": "2025-04-10T13:10:48.378130",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy"
+      }
+    },
+    {
+      "id": "d95eb3f3-8203-49db-be2b-7a86303043f7",
+      "name": "sqlalchemy.Boolean",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy: Boolean",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.380077",
+      "last_modified": "2025-04-10T13:10:48.380078",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy"
+      }
+    },
+    {
+      "id": "6667963f-4b67-4cb0-b282-1ebe26813715",
+      "name": "sqlalchemy.DateTime",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy: DateTime",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.382049",
+      "last_modified": "2025-04-10T13:10:48.382050",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy"
+      }
+    },
+    {
+      "id": "2828e1dd-1c22-47e0-8b2b-5f5b052985fe",
+      "name": "sqlalchemy.ForeignKey",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy: ForeignKey",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.384434",
+      "last_modified": "2025-04-10T13:10:48.384436",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy"
+      }
+    },
+    {
+      "id": "7d63d87e-6d58-4c14-b3f5-3b08d6c2bdd8",
+      "name": "sqlalchemy.ext.declarative",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: sqlalchemy.ext.declarative",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.386967",
+      "last_modified": "2025-04-10T13:10:48.386968",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "1cef77dc-23b5-401c-898b-69f5f41c4f9c",
+      "name": "sqlalchemy.ext.declarative.declarative_base",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy.ext.declarative: declarative_base",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.387677",
+      "last_modified": "2025-04-10T13:10:48.387679",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy.ext.declarative"
+      }
+    },
+    {
+      "id": "87e41198-a26f-44c2-a4e1-82ad1d69fba3",
+      "name": "sqlalchemy.orm",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: sqlalchemy.orm",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.389874",
+      "last_modified": "2025-04-10T13:10:48.389875",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "958cd4ef-f1d9-4d7d-95fb-76f46c5906d0",
+      "name": "sqlalchemy.orm.sessionmaker",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy.orm: sessionmaker",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.390673",
+      "last_modified": "2025-04-10T13:10:48.390674",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy.orm"
+      }
+    },
+    {
+      "id": "90ab58d3-79f6-47ee-9649-ba4d24c900fe",
+      "name": "sqlalchemy.orm.relationship",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy.orm: relationship",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.393425",
+      "last_modified": "2025-04-10T13:10:48.393427",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy.orm"
+      }
+    },
+    {
+      "id": "d06920dc-6e4b-4da0-b7a6-bc9406ac14f6",
+      "name": "sqlalchemy.sql",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: sqlalchemy.sql",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.395980",
+      "last_modified": "2025-04-10T13:10:48.395981",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "7fc48f95-67b9-4a59-8832-5d2c7e4b7ffb",
+      "name": "sqlalchemy.sql.func",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy.sql: func",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.396861",
+      "last_modified": "2025-04-10T13:10:48.396862",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy.sql"
+      }
+    },
+    {
+      "id": "69b06be0-eaf4-476c-91f8-68a6f7f4e61f",
+      "name": "datetime",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: datetime",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.399471",
+      "last_modified": "2025-04-10T13:10:48.399472",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "6af213fc-b73a-41df-b59b-32fefa75389d",
+      "name": "datetime.datetime",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from datetime: datetime",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:48.400443",
+      "last_modified": "2025-04-10T13:10:48.400445",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "datetime"
+      }
+    },
+    {
+      "id": "b9d0e157-764b-45df-9e1a-4d072e3a886f",
+      "name": "CategoryModel",
+      "type": "class",
+      "status": "implemented",
+      "description": "SQLAlchemy model for categories.",
+      "code_text": "class CategoryModel(Base):\n    \"\"\"SQLAlchemy model for categories.\"\"\"\n    __tablename__ = \"categories\"\n\n    id = Column(Integer, primary_key=True, index=True)\n    name = Column(String, unique=True, index=True)\n    description = Column(Text, nullable=True)\n    \n    # Relationship with tasks\n    tasks = relationship(\"TaskModel\", back_populates=\"category\")",
+      "created_at": "2025-04-10T13:10:48.403303",
+      "last_modified": "2025-04-10T13:10:48.403305",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "Base"
+        ],
+        "methods": [],
+        "line_range": [
+          22,
+          31
+        ]
+      }
+    },
+    {
+      "id": "51da1cc3-7c22-4fec-9106-06b790109477",
+      "name": "TaskModel",
+      "type": "class",
+      "status": "implemented",
+      "description": "SQLAlchemy model for tasks.",
+      "code_text": "class TaskModel(Base):\n    \"\"\"SQLAlchemy model for tasks.\"\"\"\n    __tablename__ = \"tasks\"\n\n    id = Column(Integer, primary_key=True, index=True)\n    title = Column(String, index=True)\n    description = Column(Text, nullable=True)\n    due_date = Column(DateTime, nullable=True)\n    priority = Column(String, default=\"medium\")\n    completed = Column(Boolean, default=False)\n    created_at = Column(DateTime, default=datetime.now)\n    updated_at = Column(DateTime, nullable=True, onupdate=func.now())\n    \n    # Foreign key relationship with categories\n    category_id = Column(Integer, ForeignKey(\"categories.id\"), nullable=True)\n    category = relationship(\"CategoryModel\", back_populates=\"tasks\")",
+      "created_at": "2025-04-10T13:10:48.405937",
+      "last_modified": "2025-04-10T13:10:48.405938",
+      "version": 1,
+      "metadata": {
+        "bases": [
+          "Base"
+        ],
+        "methods": [],
+        "line_range": [
+          34,
+          49
+        ]
+      }
+    },
+    {
+      "id": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "name": "tasks.py",
+      "type": "file",
+      "status": "implemented",
+      "description": "Python file: tasks.py",
+      "code_text": "\"\"\"\nRouter for task-related endpoints.\n\"\"\"\n\nfrom typing import List, Optional\nfrom fastapi import APIRouter, Depends, HTTPException, Query, Path\nfrom sqlalchemy.orm import Session\n\nfrom ..database import get_db, TaskModel\nfrom ..models import Task, TaskCreate, TaskUpdate, PriorityEnum\n\nrouter = APIRouter(\n    prefix=\"/tasks\",\n    tags=[\"tasks\"],\n    responses={404: {\"description\": \"Not found\"}},\n)\n\n\n@router.get(\"/\", response_model=List[Task])\nasync def get_tasks(\n    skip: int = 0,\n    limit: int = 100,\n    completed: Optional[bool] = None,\n    priority: Optional[PriorityEnum] = None,\n    db: Session = Depends(get_db)\n):\n    \"\"\"\n    Get all tasks with optional filtering.\n    \n    Args:\n        skip: Number of records to skip (pagination)\n        limit: Maximum number of records to return\n        completed: Filter by completion status\n        priority: Filter by priority level\n        db: Database session\n        \n    Returns:\n        List of tasks matching the criteria\n    \"\"\"\n    query = db.query(TaskModel)\n    \n    # Apply filters if provided\n    if completed is not None:\n        query = query.filter(TaskModel.completed == completed)\n    \n    if priority is not None:\n        query = query.filter(TaskModel.priority == priority)\n    \n    # Apply pagination\n    tasks = query.offset(skip).limit(limit).all()\n    return tasks\n\n\n@router.post(\"/\", response_model=Task)\nasync def create_task(task: TaskCreate, db: Session = Depends(get_db)):\n    \"\"\"\n    Create a new task.\n    \n    Args:\n        task: Task data\n        db: Database session\n        \n    Returns:\n        Created task\n    \"\"\"\n    db_task = TaskModel(**task.dict())\n    db.add(db_task)\n    db.commit()\n    db.refresh(db_task)\n    return db_task\n\n\n@router.patch(\"/{task_id}/complete\", response_model=Task)\nasync def complete_task(\n    task_id: int = Path(..., description=\"ID of the task to mark as completed\"),\n    db: Session = Depends(get_db)\n):\n    \"\"\"\n    Mark a task as completed.\n    \n    Args:\n        task_id: ID of the task to mark as completed\n        db: Database session\n        \n    Returns:\n        Updated task\n    \"\"\"\n    # Find the task\n    db_task = db.query(TaskModel).filter(TaskModel.id == task_id).first()\n    if not db_task:\n        raise HTTPException(status_code=404, detail=\"Task not found\")\n    \n    # Mark as completed\n    db_task.completed = True\n    db_task.updated_at = __import__('datetime').datetime.now()\n    \n    # Save changes\n    db.commit()\n    db.refresh(db_task)\n    \n    return db_task",
+      "created_at": "2025-04-10T13:10:58.912207",
+      "last_modified": "2025-04-10T13:12:05.687318",
+      "version": 2,
+      "metadata": {
+        "path": "/Users/sparshdrolia/Sparsh personal/task-scheduler-api/app/routers/tasks.py"
+      }
+    },
+    {
+      "id": "bd29e73a-41eb-4575-8621-5386a423c6e1",
+      "name": "typing",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: typing",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.915638",
+      "last_modified": "2025-04-10T13:10:58.915646",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "06736808-2b28-462e-b69b-c31ec566aaec",
+      "name": "typing.List",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from typing: List",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.918095",
+      "last_modified": "2025-04-10T13:10:58.918100",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "typing"
+      }
+    },
+    {
+      "id": "5cbdbafa-103c-4025-9ab1-b887c7ec28b1",
+      "name": "typing.Optional",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from typing: Optional",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.925970",
+      "last_modified": "2025-04-10T13:10:58.925972",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "typing"
+      }
+    },
+    {
+      "id": "3910afb4-5094-4388-9424-d966a454c397",
+      "name": "fastapi",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: fastapi",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.931987",
+      "last_modified": "2025-04-10T13:10:58.931989",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "ff86d66b-2eb7-4ad2-a983-ca28cda7cf63",
+      "name": "fastapi.APIRouter",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from fastapi: APIRouter",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.933743",
+      "last_modified": "2025-04-10T13:10:58.933745",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "fastapi"
+      }
+    },
+    {
+      "id": "3054a9e0-4326-4a5b-92f4-a0b21bfc2d63",
+      "name": "fastapi.Depends",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from fastapi: Depends",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.938977",
+      "last_modified": "2025-04-10T13:10:58.938979",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "fastapi"
+      }
+    },
+    {
+      "id": "2096879f-3f59-4f96-aca5-691fdc838ec9",
+      "name": "fastapi.HTTPException",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from fastapi: HTTPException",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.943831",
+      "last_modified": "2025-04-10T13:10:58.943833",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "fastapi"
+      }
+    },
+    {
+      "id": "ef67d5e7-a428-4c18-b53d-d7037d0d8899",
+      "name": "fastapi.Query",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from fastapi: Query",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.948443",
+      "last_modified": "2025-04-10T13:10:58.948444",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "fastapi"
+      }
+    },
+    {
+      "id": "82989781-a6be-437a-860a-6604677eda06",
+      "name": "sqlalchemy.orm",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: sqlalchemy.orm",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.953070",
+      "last_modified": "2025-04-10T13:10:58.953071",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "67099323-88d0-44c5-a054-ed84cd35193e",
+      "name": "sqlalchemy.orm.Session",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy.orm: Session",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.954549",
+      "last_modified": "2025-04-10T13:10:58.954550",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy.orm"
+      }
+    },
+    {
+      "id": "c86198af-c0d3-4cc4-ac05-e90910acda95",
+      "name": "database",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: database",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.959056",
+      "last_modified": "2025-04-10T13:10:58.959057",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "f465cc35-97b9-4a0b-89ec-645df3752829",
+      "name": "database.get_db",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from database: get_db",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.960505",
+      "last_modified": "2025-04-10T13:10:58.960506",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "database"
+      }
+    },
+    {
+      "id": "67e5d47c-aa26-4d86-86f2-a245fccdd91b",
+      "name": "database.TaskModel",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from database: TaskModel",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.964882",
+      "last_modified": "2025-04-10T13:10:58.964884",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "database"
+      }
+    },
+    {
+      "id": "894a0853-38b6-493e-9450-cb2857aae673",
+      "name": "models",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: models",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.969159",
+      "last_modified": "2025-04-10T13:10:58.969159",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "69955d9e-32d2-411e-85f4-5a0abfda21aa",
+      "name": "models.Task",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from models: Task",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.970596",
+      "last_modified": "2025-04-10T13:10:58.970597",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "models"
+      }
+    },
+    {
+      "id": "f9a85c52-11dd-44d5-a563-c11738e2a3a7",
+      "name": "models.TaskCreate",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from models: TaskCreate",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.974932",
+      "last_modified": "2025-04-10T13:10:58.974933",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "models"
+      }
+    },
+    {
+      "id": "1aec200e-1415-46b1-915f-118474b4eac8",
+      "name": "models.TaskUpdate",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from models: TaskUpdate",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.979184",
+      "last_modified": "2025-04-10T13:10:58.979185",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "models"
+      }
+    },
+    {
+      "id": "bc82f646-ba73-471c-a32a-01f995fb52ac",
+      "name": "models.PriorityEnum",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from models: PriorityEnum",
+      "code_text": "",
+      "created_at": "2025-04-10T13:10:58.983479",
+      "last_modified": "2025-04-10T13:10:58.983480",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "models"
+      }
+    },
+    {
+      "id": "44604d26-8c01-4175-8426-ffa602ed06af",
+      "name": "typing",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: typing",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.689006",
+      "last_modified": "2025-04-10T13:12:05.689008",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "3583c8b8-8eb3-41ba-86d6-bb0f46d4aac7",
+      "name": "typing.List",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from typing: List",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.690417",
+      "last_modified": "2025-04-10T13:12:05.690419",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "typing"
+      }
+    },
+    {
+      "id": "ee85f81f-cdbd-45a6-8af6-5b3a435442c7",
+      "name": "typing.Optional",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from typing: Optional",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.694893",
+      "last_modified": "2025-04-10T13:12:05.694895",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "typing"
+      }
+    },
+    {
+      "id": "bc7d5da5-eda2-4cfb-b0e4-2463d76be931",
+      "name": "fastapi",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: fastapi",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.699162",
+      "last_modified": "2025-04-10T13:12:05.699163",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "ca0606e0-d913-4fab-b031-80e9640bb221",
+      "name": "fastapi.APIRouter",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from fastapi: APIRouter",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.700603",
+      "last_modified": "2025-04-10T13:12:05.700605",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "fastapi"
+      }
+    },
+    {
+      "id": "bc4c3b69-5acf-4a4a-b77b-626282dc43b5",
+      "name": "fastapi.Depends",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from fastapi: Depends",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.705156",
+      "last_modified": "2025-04-10T13:12:05.705157",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "fastapi"
+      }
+    },
+    {
+      "id": "9493d858-cace-4ee7-b460-2044333b80e8",
+      "name": "fastapi.HTTPException",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from fastapi: HTTPException",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.711204",
+      "last_modified": "2025-04-10T13:12:05.711211",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "fastapi"
+      }
+    },
+    {
+      "id": "350086ad-8df5-4e9d-884a-af1dcecc863c",
+      "name": "fastapi.Query",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from fastapi: Query",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.716310",
+      "last_modified": "2025-04-10T13:12:05.716314",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "fastapi"
+      }
+    },
+    {
+      "id": "7bc5ea8a-78a7-4f6f-871a-f485ffd971c8",
+      "name": "fastapi.Path",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from fastapi: Path",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.721303",
+      "last_modified": "2025-04-10T13:12:05.721305",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "fastapi"
+      }
+    },
+    {
+      "id": "2f342577-4dd9-44ea-a2e3-b745ac799d38",
+      "name": "sqlalchemy.orm",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: sqlalchemy.orm",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.725760",
+      "last_modified": "2025-04-10T13:12:05.725761",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "df3c0cb6-245c-47ed-9d36-fb080cbbab11",
+      "name": "sqlalchemy.orm.Session",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from sqlalchemy.orm: Session",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.727682",
+      "last_modified": "2025-04-10T13:12:05.727684",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "sqlalchemy.orm"
+      }
+    },
+    {
+      "id": "8218b550-719a-4bc5-aea2-6dc351ff2c66",
+      "name": "database",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: database",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.732245",
+      "last_modified": "2025-04-10T13:12:05.732246",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "6215d344-2978-4e42-ba4a-37b739669504",
+      "name": "database.get_db",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from database: get_db",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.733785",
+      "last_modified": "2025-04-10T13:12:05.733786",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "database"
+      }
+    },
+    {
+      "id": "e2b83384-20d5-405c-b408-91758e9c460b",
+      "name": "database.TaskModel",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from database: TaskModel",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.738726",
+      "last_modified": "2025-04-10T13:12:05.738727",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "database"
+      }
+    },
+    {
+      "id": "49937d0b-a3d4-4e71-89c5-b41bb1ac36ef",
+      "name": "models",
+      "type": "module",
+      "status": "implemented",
+      "description": "Imported module: models",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.743613",
+      "last_modified": "2025-04-10T13:12:05.743615",
+      "version": 1,
+      "metadata": {
+        "external": true
+      }
+    },
+    {
+      "id": "d77c2398-edee-4427-ae33-2e9355ddaf72",
+      "name": "models.Task",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from models: Task",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.745471",
+      "last_modified": "2025-04-10T13:12:05.745473",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "models"
+      }
+    },
+    {
+      "id": "a33a1adc-4f6b-401f-86ab-8950bc59655b",
+      "name": "models.TaskCreate",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from models: TaskCreate",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.750931",
+      "last_modified": "2025-04-10T13:12:05.750934",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "models"
+      }
+    },
+    {
+      "id": "319879c5-605f-4d41-98e5-f6fad308c08a",
+      "name": "models.TaskUpdate",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from models: TaskUpdate",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.755965",
+      "last_modified": "2025-04-10T13:12:05.755972",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "models"
+      }
+    },
+    {
+      "id": "95318343-d1c5-4f1f-9c1c-6edb75d5a36b",
+      "name": "models.PriorityEnum",
+      "type": "function",
+      "status": "implemented",
+      "description": "Imported from models: PriorityEnum",
+      "code_text": "",
+      "created_at": "2025-04-10T13:12:05.761889",
+      "last_modified": "2025-04-10T13:12:05.761890",
+      "version": 1,
+      "metadata": {
+        "external": true,
+        "alias": null,
+        "parent_module": "models"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "9119a663-a563-4fae-af4a-9f677cb6fd10",
+      "data": {
+        "id": "e749859f-4a8c-4465-97cc-23d3a1248b9a",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:37.587585",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "dfcba3e3-147b-4183-9f1f-f83f4ca8e938",
+      "data": {
+        "id": "0399ae27-2cdb-4ba2-948e-89590bda3214",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:37.588440",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "bd29a36e-e771-41cb-8b47-405ecc458000",
+      "data": {
+        "id": "481233a6-2741-4bad-8277-d5c99870f34e",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:37.589483",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "4049c300-0ff0-4753-9ec0-a97ebbdd03b5",
+      "data": {
+        "id": "229a2194-23e2-44e1-a9f2-a6be309d7e59",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:37.590361",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "e660d70e-3037-41f9-9b6f-fab70fa66069",
+      "data": {
+        "id": "317411cc-d975-4706-9867-151c8051c5d6",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:37.592287",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "5b9df197-2eaf-4455-af76-6977062df6dd",
+      "data": {
+        "id": "e578523f-07dd-49a7-be7c-3a6f767f27e2",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:37.593814",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "65cdba71-82ba-4bef-ba15-9f3b2b04886c",
+      "data": {
+        "id": "b53c3707-e230-4fda-8c5e-b517129e3961",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.595252",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "data": {
+        "id": "0d707efc-df03-434e-b6ce-1e761dddfbd7",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.597550",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "788374aa-54a6-48ab-8c11-b8bfd7f60757",
+      "data": {
+        "id": "d48784f6-35c2-48aa-b991-d4180fcdf779",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.599384",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "51432a4e-6349-42b8-a2f6-d8109dc59710",
+      "data": {
+        "id": "3c6d5728-9216-4c4f-8494-b11e9a26581a",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.601153",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "95eb211e-6933-41ab-902d-4dddcb189da6",
+      "data": {
+        "id": "879fa1b5-a30a-49bd-9420-1fcf5ecc8146",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.603093",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "72cd35b4-f72b-44b6-b315-f6a8e63e923a",
+      "data": {
+        "id": "443404a1-00d7-44a8-af6a-4645d20b3423",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.605443",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "f1ddf234-29ed-4477-9ba0-e4cb028a47cf",
+      "data": {
+        "id": "4a6148d8-5f9d-49a8-952c-f4c85544a619",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.607632",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "ae41a225-b6f3-4a25-b6ae-2c7d668c24f6",
+      "target": "2b7552cd-50f4-4dc1-82f6-5b5d3d1c5683",
+      "data": {
+        "id": "af618b6e-4a20-4304-a337-8bfcd07d2744",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.609547",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "c8159787-954c-4667-8cdc-717417590eec",
+      "target": "9119a663-a563-4fae-af4a-9f677cb6fd10",
+      "data": {
+        "id": "9790b171-68b0-40bf-a099-858342151b79",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.587785",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "d3e9efac-1568-4adb-835d-2542bd3af887",
+      "target": "dfcba3e3-147b-4183-9f1f-f83f4ca8e938",
+      "data": {
+        "id": "02159a9e-26da-4702-9284-f4390f058df1",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.588677",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "b26f89dc-28a9-4338-8571-2e9541393a87",
+      "target": "bd29a36e-e771-41cb-8b47-405ecc458000",
+      "data": {
+        "id": "2ef4768f-87fc-42bf-904c-cc7b15c26858",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.589766",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "b26f89dc-28a9-4338-8571-2e9541393a87",
+      "target": "4049c300-0ff0-4753-9ec0-a97ebbdd03b5",
+      "data": {
+        "id": "3d9bfdd8-5461-4509-bd4e-f4a52f906400",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.590686",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "955d431a-b9d6-40a2-8e61-7ff8de6dd24b",
+      "target": "e660d70e-3037-41f9-9b6f-fab70fa66069",
+      "data": {
+        "id": "d807765a-5558-4f2a-b0aa-4c86eaa0cbe1",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.592861",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "955d431a-b9d6-40a2-8e61-7ff8de6dd24b",
+      "target": "5b9df197-2eaf-4455-af76-6977062df6dd",
+      "data": {
+        "id": "89c1a85d-c934-4b18-9e51-9f23172f4719",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:37.594258",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "65cdba71-82ba-4bef-ba15-9f3b2b04886c",
+      "target": "65cdba71-82ba-4bef-ba15-9f3b2b04886c",
+      "data": {
+        "id": "9247c322-f445-4d3a-bde1-29b0dd6539ed",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:37.596435",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "target": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "data": {
+        "id": "23314e70-b8a2-4da0-8f27-9a84ca34163b",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:37.598162",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "788374aa-54a6-48ab-8c11-b8bfd7f60757",
+      "target": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "data": {
+        "id": "a47a2722-844e-46a1-91e9-ab1462a608dd",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:37.599958",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "51432a4e-6349-42b8-a2f6-d8109dc59710",
+      "target": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "data": {
+        "id": "2d1bd365-966d-441d-aa96-7b610752a483",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:37.601769",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "95eb211e-6933-41ab-902d-4dddcb189da6",
+      "target": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "data": {
+        "id": "2a080abe-8d4d-42e2-b625-a41fd977ebcd",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:37.603692",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "72cd35b4-f72b-44b6-b315-f6a8e63e923a",
+      "target": "95eb211e-6933-41ab-902d-4dddcb189da6",
+      "data": {
+        "id": "ff4987fa-0ef8-41a3-b5fb-cae960a0d04c",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:37.606267",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "f1ddf234-29ed-4477-9ba0-e4cb028a47cf",
+      "target": "95eb211e-6933-41ab-902d-4dddcb189da6",
+      "data": {
+        "id": "e5248e09-33e9-494a-a133-81a401535303",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:37.608262",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "2b7552cd-50f4-4dc1-82f6-5b5d3d1c5683",
+      "target": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "data": {
+        "id": "6323bdd2-e81c-4582-a9fd-68858d23c6bf",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:37.610242",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "f3e52e2e-c9f1-4dbc-b14e-98c8097710e1",
+      "data": {
+        "id": "0ee33327-8cb1-433c-bdb3-b6a63f8c6ab1",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.371571",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "db71d717-d1f4-4879-8864-5ba6b3ad1f28",
+      "data": {
+        "id": "6fc218fb-5d6f-4996-8410-1da22100e656",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.373167",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "febb3b16-135f-4f87-b9ab-a6cb008b81d2",
+      "data": {
+        "id": "beab6c77-8fcd-461d-ad86-0d028c31b43b",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.374828",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "2bf4db63-a55e-49c6-bdea-049109234bcf",
+      "data": {
+        "id": "bf5e86ac-d71a-4791-a0d7-db67fe6effe9",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.376857",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "294cdae0-a1cd-4511-b3d5-c97c315cfc9d",
+      "data": {
+        "id": "f603c4fb-33d4-4955-9a29-9506cb8ef2c1",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.378772",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "d95eb3f3-8203-49db-be2b-7a86303043f7",
+      "data": {
+        "id": "f2347d5d-bd87-4b9b-9bbb-0974332cbdd7",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.380718",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "6667963f-4b67-4cb0-b282-1ebe26813715",
+      "data": {
+        "id": "1720dce6-5347-49c5-81ef-b165bc837b66",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.382820",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "2828e1dd-1c22-47e0-8b2b-5f5b052985fe",
+      "data": {
+        "id": "f111d247-4e1d-4d94-bfc3-4e941245cfbd",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.385092",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "1cef77dc-23b5-401c-898b-69f5f41c4f9c",
+      "data": {
+        "id": "a5a629ad-1a8e-412d-af6a-05124eac5bd6",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.388420",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "958cd4ef-f1d9-4d7d-95fb-76f46c5906d0",
+      "data": {
+        "id": "fc3ee083-75ae-42f8-91a3-afd0962ffce2",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.391498",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "90ab58d3-79f6-47ee-9649-ba4d24c900fe",
+      "data": {
+        "id": "d2765840-bdc3-4fa2-821e-34d39af52762",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.394295",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "7fc48f95-67b9-4a59-8832-5d2c7e4b7ffb",
+      "data": {
+        "id": "31a78a83-3c7d-44cf-ab49-cd2b87b7eb27",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.397696",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "6af213fc-b73a-41df-b59b-32fefa75389d",
+      "data": {
+        "id": "5dbf7748-9e9a-4fbb-b148-5dc63edc7afe",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:48.401380",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "b9d0e157-764b-45df-9e1a-4d072e3a886f",
+      "data": {
+        "id": "67e302c3-5c1e-4af3-8913-a0a2ab9acdc7",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.404198",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "0d5824b2-6da9-4d54-b2b1-226b4d4aab4e",
+      "target": "51da1cc3-7c22-4fec-9106-06b790109477",
+      "data": {
+        "id": "d6bf5328-0a75-4b97-bd54-1853d39eacab",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.406884",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "4f661664-681b-429e-ae64-0afcdd6ef029",
+      "target": "f3e52e2e-c9f1-4dbc-b14e-98c8097710e1",
+      "data": {
+        "id": "ea0e7b02-a9c9-4544-b401-542fe7ad9e6a",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.372077",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "4f661664-681b-429e-ae64-0afcdd6ef029",
+      "target": "db71d717-d1f4-4879-8864-5ba6b3ad1f28",
+      "data": {
+        "id": "5f1dbfe2-662d-4434-bc10-4d21b96866b8",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.373712",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "4f661664-681b-429e-ae64-0afcdd6ef029",
+      "target": "febb3b16-135f-4f87-b9ab-a6cb008b81d2",
+      "data": {
+        "id": "e593f995-5230-4146-af74-93b55316c58e",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.375505",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "4f661664-681b-429e-ae64-0afcdd6ef029",
+      "target": "2bf4db63-a55e-49c6-bdea-049109234bcf",
+      "data": {
+        "id": "1101b2d3-2768-430d-a9b0-8b4530a1bc12",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.377499",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "4f661664-681b-429e-ae64-0afcdd6ef029",
+      "target": "294cdae0-a1cd-4511-b3d5-c97c315cfc9d",
+      "data": {
+        "id": "bc6c4c88-6144-4b09-91b3-80a8ba7cddd0",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.379418",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "4f661664-681b-429e-ae64-0afcdd6ef029",
+      "target": "d95eb3f3-8203-49db-be2b-7a86303043f7",
+      "data": {
+        "id": "b1780eb5-dcc1-4a0a-81a9-ce53fc20e742",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.381383",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "4f661664-681b-429e-ae64-0afcdd6ef029",
+      "target": "6667963f-4b67-4cb0-b282-1ebe26813715",
+      "data": {
+        "id": "80564960-3514-4a45-9427-66f24918a0d8",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.383689",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "4f661664-681b-429e-ae64-0afcdd6ef029",
+      "target": "2828e1dd-1c22-47e0-8b2b-5f5b052985fe",
+      "data": {
+        "id": "3ce2667a-713e-4afa-b19e-736ee1078772",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.386140",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "7d63d87e-6d58-4c14-b3f5-3b08d6c2bdd8",
+      "target": "1cef77dc-23b5-401c-898b-69f5f41c4f9c",
+      "data": {
+        "id": "66c3112a-864e-43d5-9b7e-fe5d4a29550d",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.389135",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "87e41198-a26f-44c2-a4e1-82ad1d69fba3",
+      "target": "958cd4ef-f1d9-4d7d-95fb-76f46c5906d0",
+      "data": {
+        "id": "895e427e-2ed1-45ea-8729-832d21dc2bd6",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.392486",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "87e41198-a26f-44c2-a4e1-82ad1d69fba3",
+      "target": "90ab58d3-79f6-47ee-9649-ba4d24c900fe",
+      "data": {
+        "id": "05d1e99b-69ed-4696-89a7-de706f123119",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.395136",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "d06920dc-6e4b-4da0-b7a6-bc9406ac14f6",
+      "target": "7fc48f95-67b9-4a59-8832-5d2c7e4b7ffb",
+      "data": {
+        "id": "a7d50c37-a6c1-4e77-afe7-41f917848063",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.398595",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "69b06be0-eaf4-476c-91f8-68a6f7f4e61f",
+      "target": "6af213fc-b73a-41df-b59b-32fefa75389d",
+      "data": {
+        "id": "59f3d2a9-41f8-4def-9df5-a7c48eb883ef",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:48.402328",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "b9d0e157-764b-45df-9e1a-4d072e3a886f",
+      "target": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "data": {
+        "id": "2ec70327-9d6d-4922-87fa-cf3b275c4472",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:48.405048",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "51da1cc3-7c22-4fec-9106-06b790109477",
+      "target": "501d54a7-f524-41a4-bf31-22762a14fe1b",
+      "data": {
+        "id": "0cd612a9-2884-4ba0-8481-38fae4805fb3",
+        "type": "inherits",
+        "created_at": "2025-04-10T13:10:48.407851",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "06736808-2b28-462e-b69b-c31ec566aaec",
+      "data": {
+        "id": "9ce37f00-1e69-4b3a-bf26-c4a58ef08bf2",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.921065",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "5cbdbafa-103c-4025-9ab1-b887c7ec28b1",
+      "data": {
+        "id": "22c34ff5-6bcc-4b6b-aafd-289e13353f61",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.928021",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "ff86d66b-2eb7-4ad2-a983-ca28cda7cf63",
+      "data": {
+        "id": "603a96fa-6e9f-47e4-a2b3-10af6a14c7e8",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.935494",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "3054a9e0-4326-4a5b-92f4-a0b21bfc2d63",
+      "data": {
+        "id": "c76ff485-5b25-4a1a-88b2-df9a4826d230",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.940593",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "2096879f-3f59-4f96-aca5-691fdc838ec9",
+      "data": {
+        "id": "aca2762b-e87a-4979-b3ab-70552fc404c5",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.945380",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "ef67d5e7-a428-4c18-b53d-d7037d0d8899",
+      "data": {
+        "id": "89d02d5a-9a5b-40fe-ab96-6c0c8d61a826",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.950003",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "67099323-88d0-44c5-a054-ed84cd35193e",
+      "data": {
+        "id": "713b65e5-4055-48bd-97f8-aec8304d65be",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.956040",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "f465cc35-97b9-4a0b-89ec-645df3752829",
+      "data": {
+        "id": "14b54e5d-41ee-49c3-9071-a00a435e1a3c",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.961956",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "67e5d47c-aa26-4d86-86f2-a245fccdd91b",
+      "data": {
+        "id": "a70b105a-c2d2-408e-be7e-a1b5170add2a",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.966339",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "69955d9e-32d2-411e-85f4-5a0abfda21aa",
+      "data": {
+        "id": "d42e8e4d-e1de-4fd6-b21d-5eee7dbdd496",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.972043",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "f9a85c52-11dd-44d5-a563-c11738e2a3a7",
+      "data": {
+        "id": "424e8bd6-9f65-46de-9f7f-0027aefdb46a",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.976343",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "1aec200e-1415-46b1-915f-118474b4eac8",
+      "data": {
+        "id": "b0215e60-4533-4b0f-8ad4-d8cbe2abcb5d",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.980668",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "bc82f646-ba73-471c-a32a-01f995fb52ac",
+      "data": {
+        "id": "75fc2e1a-ff83-4939-aa1c-9b560cc44c38",
+        "type": "imports",
+        "created_at": "2025-04-10T13:10:58.984902",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "3583c8b8-8eb3-41ba-86d6-bb0f46d4aac7",
+      "data": {
+        "id": "a96b6678-cde9-48b1-9bc3-28e9d69f5931",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.691937",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "ee85f81f-cdbd-45a6-8af6-5b3a435442c7",
+      "data": {
+        "id": "490fe6fa-0ece-4bf3-be1f-6065f437ad74",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.696301",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "ca0606e0-d913-4fab-b031-80e9640bb221",
+      "data": {
+        "id": "b5a4680a-b007-4f3b-95fb-50fd0caf3483",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.702054",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "bc4c3b69-5acf-4a4a-b77b-626282dc43b5",
+      "data": {
+        "id": "99020041-3d89-433a-bc0b-65d4d0ff46d6",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.706535",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "9493d858-cace-4ee7-b460-2044333b80e8",
+      "data": {
+        "id": "c950c052-a3f2-46cc-a722-479eeae93dc7",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.712876",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "350086ad-8df5-4e9d-884a-af1dcecc863c",
+      "data": {
+        "id": "cc86c334-3a00-4db1-804c-68ade32e83cf",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.717979",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "7bc5ea8a-78a7-4f6f-871a-f485ffd971c8",
+      "data": {
+        "id": "5816306e-c7ad-4d53-8353-b25ac977b12e",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.722790",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "df3c0cb6-245c-47ed-9d36-fb080cbbab11",
+      "data": {
+        "id": "fcf34586-401c-4eea-a995-912922dcb9b6",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.729288",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "6215d344-2978-4e42-ba4a-37b739669504",
+      "data": {
+        "id": "d8c8a892-3f26-4e2a-9fc1-d3dc3fc4f183",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.735315",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "e2b83384-20d5-405c-b408-91758e9c460b",
+      "data": {
+        "id": "028f4ce0-ba4a-438a-a56c-fe9c8a4cce7e",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.740349",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "d77c2398-edee-4427-ae33-2e9355ddaf72",
+      "data": {
+        "id": "54048ad6-0e18-46b8-bdca-2cda497c7db6",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.747321",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "a33a1adc-4f6b-401f-86ab-8950bc59655b",
+      "data": {
+        "id": "ef8baf15-232c-4ea1-842a-00d4e4079eaf",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.752616",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "319879c5-605f-4d41-98e5-f6fad308c08a",
+      "data": {
+        "id": "b550cefd-20c6-4f76-b566-a6125fffffc4",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.758186",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "74c57af4-21db-49c4-8afd-02fccd42f045",
+      "target": "95318343-d1c5-4f1f-9c1c-6edb75d5a36b",
+      "data": {
+        "id": "cb186af1-2501-497e-b2a8-bf44079b43f5",
+        "type": "imports",
+        "created_at": "2025-04-10T13:12:05.763574",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "bd29e73a-41eb-4575-8621-5386a423c6e1",
+      "target": "06736808-2b28-462e-b69b-c31ec566aaec",
+      "data": {
+        "id": "6ecf374d-1bf8-49f6-b5c7-d9be0db0ce92",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.923906",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "bd29e73a-41eb-4575-8621-5386a423c6e1",
+      "target": "5cbdbafa-103c-4025-9ab1-b887c7ec28b1",
+      "data": {
+        "id": "d481b9b9-49c7-41c1-b3b3-e08ced298015",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.930229",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "3910afb4-5094-4388-9424-d966a454c397",
+      "target": "ff86d66b-2eb7-4ad2-a983-ca28cda7cf63",
+      "data": {
+        "id": "044e3d77-7f7a-4ce6-a4d4-be4488a10398",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.937263",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "3910afb4-5094-4388-9424-d966a454c397",
+      "target": "3054a9e0-4326-4a5b-92f4-a0b21bfc2d63",
+      "data": {
+        "id": "5e6e2981-0995-4ca4-be40-1c3b1b4ae57e",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.942216",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "3910afb4-5094-4388-9424-d966a454c397",
+      "target": "2096879f-3f59-4f96-aca5-691fdc838ec9",
+      "data": {
+        "id": "c87e187f-7c49-4a23-ae5b-122b07e16cab",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.946903",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "3910afb4-5094-4388-9424-d966a454c397",
+      "target": "ef67d5e7-a428-4c18-b53d-d7037d0d8899",
+      "data": {
+        "id": "c4f08942-f051-493e-bb0c-70ce587c213b",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.951563",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "82989781-a6be-437a-860a-6604677eda06",
+      "target": "67099323-88d0-44c5-a054-ed84cd35193e",
+      "data": {
+        "id": "10dc1be6-17e3-4b6c-93cd-7ef8159a1c0b",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.957607",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "c86198af-c0d3-4cc4-ac05-e90910acda95",
+      "target": "f465cc35-97b9-4a0b-89ec-645df3752829",
+      "data": {
+        "id": "ab6b1618-af8d-4711-8b36-a7c120ba7c18",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.963422",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "c86198af-c0d3-4cc4-ac05-e90910acda95",
+      "target": "67e5d47c-aa26-4d86-86f2-a245fccdd91b",
+      "data": {
+        "id": "9260a459-aef0-4ada-920d-5dcd5edb9475",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.967741",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "894a0853-38b6-493e-9450-cb2857aae673",
+      "target": "69955d9e-32d2-411e-85f4-5a0abfda21aa",
+      "data": {
+        "id": "6ebe9a5d-4531-4446-bf8d-509c41148be7",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.973511",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "894a0853-38b6-493e-9450-cb2857aae673",
+      "target": "f9a85c52-11dd-44d5-a563-c11738e2a3a7",
+      "data": {
+        "id": "79681b87-273c-4eb3-9fcf-c4c3f1baa1fb",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.977758",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "894a0853-38b6-493e-9450-cb2857aae673",
+      "target": "1aec200e-1415-46b1-915f-118474b4eac8",
+      "data": {
+        "id": "9c810623-c3a3-438b-a49e-33e975dcdf06",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.982096",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "894a0853-38b6-493e-9450-cb2857aae673",
+      "target": "bc82f646-ba73-471c-a32a-01f995fb52ac",
+      "data": {
+        "id": "046b695e-0896-41d9-8178-8e8a87ca8216",
+        "type": "contains",
+        "created_at": "2025-04-10T13:10:58.986282",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "44604d26-8c01-4175-8426-ffa602ed06af",
+      "target": "3583c8b8-8eb3-41ba-86d6-bb0f46d4aac7",
+      "data": {
+        "id": "392e76d5-332b-446b-bb6a-a8e39552a03b",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.693499",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "44604d26-8c01-4175-8426-ffa602ed06af",
+      "target": "ee85f81f-cdbd-45a6-8af6-5b3a435442c7",
+      "data": {
+        "id": "906d3675-72bf-4b96-8b3a-90cbe5db904d",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.697730",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "bc7d5da5-eda2-4cfb-b0e4-2463d76be931",
+      "target": "ca0606e0-d913-4fab-b031-80e9640bb221",
+      "data": {
+        "id": "4961b070-6477-464d-862e-5bffd221e6b6",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.703747",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "bc7d5da5-eda2-4cfb-b0e4-2463d76be931",
+      "target": "bc4c3b69-5acf-4a4a-b77b-626282dc43b5",
+      "data": {
+        "id": "664d4786-d008-4410-bf31-8d682631fb7f",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.707980",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "bc7d5da5-eda2-4cfb-b0e4-2463d76be931",
+      "target": "9493d858-cace-4ee7-b460-2044333b80e8",
+      "data": {
+        "id": "c03e3a22-3f13-4c23-8151-0102a347cfae",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.714428",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "bc7d5da5-eda2-4cfb-b0e4-2463d76be931",
+      "target": "350086ad-8df5-4e9d-884a-af1dcecc863c",
+      "data": {
+        "id": "96c911eb-911c-4107-a12f-08c28b2fecc0",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.719548",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "bc7d5da5-eda2-4cfb-b0e4-2463d76be931",
+      "target": "7bc5ea8a-78a7-4f6f-871a-f485ffd971c8",
+      "data": {
+        "id": "e741f4b4-476a-4d43-9629-7f4ab0dd3ef0",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.724267",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "2f342577-4dd9-44ea-a2e3-b745ac799d38",
+      "target": "df3c0cb6-245c-47ed-9d36-fb080cbbab11",
+      "data": {
+        "id": "5df2b297-1333-4713-ba1d-bc4a41d602fc",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.730723",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "8218b550-719a-4bc5-aea2-6dc351ff2c66",
+      "target": "6215d344-2978-4e42-ba4a-37b739669504",
+      "data": {
+        "id": "80f18eb6-475b-43f9-b620-359a55797464",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.737205",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "8218b550-719a-4bc5-aea2-6dc351ff2c66",
+      "target": "e2b83384-20d5-405c-b408-91758e9c460b",
+      "data": {
+        "id": "117d9613-93a7-48e3-bbc5-3abaf75f64f9",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.741959",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "49937d0b-a3d4-4e71-89c5-b41bb1ac36ef",
+      "target": "d77c2398-edee-4427-ae33-2e9355ddaf72",
+      "data": {
+        "id": "fabaac7e-ba89-4211-a299-97d94e9bbf2b",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.749194",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "49937d0b-a3d4-4e71-89c5-b41bb1ac36ef",
+      "target": "a33a1adc-4f6b-401f-86ab-8950bc59655b",
+      "data": {
+        "id": "a9023443-b617-4302-beff-8b26d8716839",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.754273",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "49937d0b-a3d4-4e71-89c5-b41bb1ac36ef",
+      "target": "319879c5-605f-4d41-98e5-f6fad308c08a",
+      "data": {
+        "id": "8ba3c292-acf0-4831-a21c-5a240e589c60",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.759996",
+        "metadata": {}
+      }
+    },
+    {
+      "source": "49937d0b-a3d4-4e71-89c5-b41bb1ac36ef",
+      "target": "95318343-d1c5-4f1f-9c1c-6edb75d5a36b",
+      "data": {
+        "id": "b4218f93-0d5f-4ab9-bd2d-c8883588f454",
+        "type": "contains",
+        "created_at": "2025-04-10T13:12:05.765241",
+        "metadata": {}
+      }
+    }
+  ]
+}

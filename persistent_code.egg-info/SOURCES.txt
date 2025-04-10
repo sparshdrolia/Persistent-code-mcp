@@ -1,0 +1,16 @@
+README.md
+setup.py
+persistent_code/__init__.py
+persistent_code/__main__.py
+persistent_code/code_analyzer.py
+persistent_code/context_assembler.py
+persistent_code/knowledge_graph.py
+persistent_code/mcp_server.py
+persistent_code.egg-info/PKG-INFO
+persistent_code.egg-info/SOURCES.txt
+persistent_code.egg-info/dependency_links.txt
+persistent_code.egg-info/entry_points.txt
+persistent_code.egg-info/requires.txt
+persistent_code.egg-info/top_level.txt
+tests/__init__.py
+tests/test_knowledge_graph.py

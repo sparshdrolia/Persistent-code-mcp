@@ -1,0 +1,2 @@
+[console_scripts]
+persistent-code = persistent_code.__main__:main
